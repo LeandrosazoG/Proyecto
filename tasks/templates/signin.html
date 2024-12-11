@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-4 display-5 fw-bold" style="font-family: 'Poppins', sans-serif; color: #2c3e50;">
+        Inicia sesion con tu cuenta 
+    </h1>
+    
+    {% if error %}
+        <div class="alert alert-danger text-center" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    
+    <div class="d-flex justify-content-center">
+        <form action="/signin/" method="POST" class="card card-body p-4 shadow-lg rounded" style="max-width: 400px; width: 100%; border: 1px solid #eaeaea;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success w-100 mt-3">Entrar</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

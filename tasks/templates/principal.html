@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<title>Índice de Gimnasios</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    nav {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 18px;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .container h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .location-search {
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .location-search select,
+    .location-search button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 250px;
+    }
+    .location-search button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .location-search button:hover {
+      background-color: #45a049;
+    }
+
+    .gym-options {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    .gym-option {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 200px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .gym-option:hover {
+      transform: translateY(-10px);
+    }
+    .gym-option h3 {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    .gym-option p {
+      font-size: 16px;
+      color: #666;
+    }
+    .gym-option button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    .gym-option button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+ 
+
+  <div class="container">
+    <h2>Encuentra tu gimnasio ideal</h2>
+
+    <div class="location-search">
+      <h3>Busca por ubicación</h3>
+      <select id="city-select">
+        <option value="">Selecciona una ciudad...</option>
+        <option value="maipu">Maipú</option>
+        <option value="phurtado">Padre Hurtado</option>
+        <option value="pudahuel">Pudahuel</option>
+        <option value="penaflor">Peñaflor</option>
+      </select>
+      <button onclick="findGymsByLocation()">Buscar</button>
+    </div>
+
+    <div class="gym-options" id="gym-list"></div>
+  </div>
+
+  <script>
+    const gyms = [
+      { name: 'Smart Fit', city: 'maipu', description: 'Entrena de manera eficiente en Smart Fit.' },
+      { name: 'Gimnasio Pacific', city: 'maipu', description: 'Conoce el gimnasio que te lleva al siguiente nivel.' },
+      { name: 'Energy', city: 'phurtado', description: 'La energía para tu cuerpo y mente.' },
+      { name: 'Smart Fit', city: 'penaflor', description: 'Entrena de manera eficiente en Smart Fit.' },
+      { name: 'Gimnasio Pacific', city: 'pudahuel', description: 'Conoce el gimnasio que te lleva al siguiente nivel.' },
+      { name: 'Energy', city: 'pudahuel', description: 'La energía para tu cuerpo y mente.' }
+    ];
+
+    function findGymsByLocation() {
+      const city = document.getElementById('city-select').value;
+      const gymList = document.getElementById('gym-list');
+      gymList.innerHTML = '';
+
+      if (city === '') {
+        alert('Por favor, selecciona una ciudad.');
+        return;
+      }
+
+      const filteredGyms = gyms.filter(gym => gym.city === city);
+
+      if (filteredGyms.length === 0) {
+        gymList.innerHTML = '<p>No se encontraron gimnasios en esta ciudad.</p>';
+        return;
+      }
+
+      filteredGyms.forEach(gym => {
+        const gymDiv = document.createElement('div');
+        gymDiv.classList.add('gym-option');
+        gymDiv.innerHTML = `
+          <h3>${gym.name}</h3>
+          <p>${gym.description}</p>
+          <button>Ver más</button>
+        `;
+        gymList.appendChild(gymDiv);
+      });
+    }
+  </script>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-4 display-4 fw-bold" style="font-family: 'Arial', sans-serif; color: #2c3e50;">
+      
+    </h1>
+    
+    {% if error %}
+        <div class="alert alert-danger text-center" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    
+    <div class="d-flex justify-content-center">
+        <form method="POST" class="card card-body p-4" style="max-width: 400px; width: 100%;">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+
+
+
+            <button type="submit" class="btn btn-primary w-100 mt-3">Inscribirme</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
